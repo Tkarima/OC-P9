@@ -18,7 +18,7 @@ public class MyTeamOrdersController {
             //Calculer la somme du montant total pour l'équipe de l'utilisateur en ligne
 
             List<Account> acc = [SELECT Id FROM Account WHERE Id IN :accountIds OR OwnerId = :userId];
-            AggregateResult groupedResults = [SELECT SUM(TotalAmount) total FROM Order WHERE AccountId IN :acc and where status ='Ordered'];
+            AggregateResult groupedResults = [SELECT SUM(TotalAmount) total FROM Order WHERE status ='Ordered'];
             return (decimal)groupedResults.get('total');
         }
         set;
