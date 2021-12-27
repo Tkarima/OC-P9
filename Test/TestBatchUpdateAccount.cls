@@ -3,7 +3,7 @@ private class TestBatchUpdateAccount{
     @isTest static void BatchTest() {
         //Create 50 Accounts
         List<Account> listAccount = new List<Account>();
-        for(Integer i=0; i<50; i++) {
+        for(Integer i=0; i<200; i++) {
             Account acc1 = new Account(Name = 'Test Account' + i);
             listAccount.add(acc1);
         }
@@ -70,6 +70,7 @@ private class TestBatchUpdateAccount{
         //Test Chiffre_d_affaire__c is good
         for(Account account : listAccount) {
             Account acc1 = [SELECT Id, Chiffre_d_affaire__c FROM Account WHERE Id = :account.Id];
+            System.assertEquals(200, [select count() from Account]);
             System.assertEquals(((10*150)+(20*1000)), acc1.Chiffre_d_affaire__c);
         }
         
